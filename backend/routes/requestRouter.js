@@ -45,4 +45,24 @@ router.post('/', (req, res) => {
     res.status(201).json(newRequest);
 });
 
+// PUT update request status by ID
+router.put('/:id', (req, res) => {
+    const requestId = parseInt(req.params.id, 10);
+    const { status } = req.body;
+
+    const requestIndex = requests.findIndex(r => r.id === requestId);
+
+    if (requestIndex === -1) {
+        return res.status(404).json({ message: 'Request not found' });
+    }
+
+    if (!status) {
+        return res.status(400).json({ message: 'Status is required.' });
+    }
+
+    requests[requestIndex].status = status;
+
+    res.status(200).json(requests[requestIndex]);
+});
+
 module.exports = router;

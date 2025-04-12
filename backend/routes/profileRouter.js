@@ -43,4 +43,22 @@ router.post('/', (req, res) => {
     res.status(201).json(newProfile);
 });
 
+// PUT update profile by userId
+router.put('/:userId', (req, res) => {
+    const userId = parseInt(req.params.userId, 10);
+    const { bio, github, skills } = req.body;
+
+    const profileIndex = profiles.findIndex(p => p.userId === userId);
+
+    if (profileIndex === -1) {
+        return res.status(404).json({ message: 'Profile not found' });
+    }
+
+    if (bio) profiles[profileIndex].bio = bio;
+    if (github) profiles[profileIndex].github = github;
+    if (skills && Array.isArray(skills)) profiles[profileIndex].skills = skills;
+
+    res.status(200).json(profiles[profileIndex]);
+});
+
 module.exports = router;
