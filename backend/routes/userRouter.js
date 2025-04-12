@@ -42,4 +42,21 @@ router.post('/', (req, res) => {
     res.status(201).json(newUser);
 });
 
+// PUT update user by ID
+router.put('/:id', (req, res) => {
+    const userId = parseInt(req.params.id, 10);
+    const { name, skills } = req.body;
+
+    const userIndex = users.findIndex(u => u.id === userId);
+
+    if (userIndex === -1) {
+        return res.status(404).json({ message: 'User not found' });
+    }
+
+    if (name) users[userIndex].name = name;
+    if (skills && Array.isArray(skills)) users[userIndex].skills = skills;
+
+    res.status(200).json(users[userIndex]);
+});
+
 module.exports = router;
