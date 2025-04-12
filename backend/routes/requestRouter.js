@@ -26,4 +26,23 @@ router.get('/sent/:userId', (req, res) => {
     res.status(200).json(sentRequests);
 });
 
+// POST a new request
+router.post('/', (req, res) => {
+    const { fromUser, toUser, status } = req.body;
+
+    if (!fromUser || !toUser || !status) {
+        return res.status(400).json({ message: 'fromUser, toUser, and status are required.' });
+    }
+
+    const newRequest = {
+        id: requests.length + 1,
+        fromUser,
+        toUser,
+        status
+    };
+
+    requests.push(newRequest);
+    res.status(201).json(newRequest);
+});
+
 module.exports = router;

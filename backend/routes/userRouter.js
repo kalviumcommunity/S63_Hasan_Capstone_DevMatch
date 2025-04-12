@@ -24,4 +24,22 @@ router.get('/:id', (req, res) => {
     res.status(200).json(user);
 });
 
+// POST a new user
+router.post('/', (req, res) => {
+    const { name, skills } = req.body;
+
+    if (!name || !skills || !Array.isArray(skills)) {
+        return res.status(400).json({ message: 'Invalid input. Name and skills are required.' });
+    }
+
+    const newUser = {
+        id: users.length + 1,
+        name,
+        skills
+    };
+
+    users.push(newUser);
+    res.status(201).json(newUser);
+});
+
 module.exports = router;
