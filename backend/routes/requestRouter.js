@@ -1,68 +1,83 @@
 const express = require('express');
 const router = express.Router();
+const ConnectionRequest = require('../models/connectionRequest');
+const User = require("../models/user")
 
-// Mock request data
-const requests = [
-    { id: 1, fromUser: 1, toUser: 2, status: 'pending' },
-    { id: 2, fromUser: 2, toUser: 1, status: 'accepted' }
-];
-
-// GET all requests
-router.get('/', (req, res) => {
+// GET all connection requests
+router.get('/', async (req, res) => {
+  try {
+    const requests = await ConnectionRequest.find().populate('sender receiver');
     res.status(200).json(requests);
+  } catch (err) {
+    res.status(500).json({ message: 'Error fetching requests', error: err });
+  }
 });
 
 // GET requests received by a user
-router.get('/received/:userId', (req, res) => {
-    const userId = parseInt(req.params.userId, 10);
-    const receivedRequests = requests.filter(r => r.toUser === userId);
+router.get('/received/:userId', async (req, res) => {
+  try {
+    const receivedRequests = await ConnectionRequest.find({ receiver: req.params.userId }).populate('sender');
     res.status(200).json(receivedRequests);
+  } catch (err) {
+    res.status(500).json({ message: 'Error fetching received requests', error: err });
+  }
 });
 
 // GET requests sent by a user
-router.get('/sent/:userId', (req, res) => {
-    const userId = parseInt(req.params.userId, 10);
-    const sentRequests = requests.filter(r => r.fromUser === userId);
+router.get('/sent/:userId', async (req, res) => {
+  try {
+    const sentRequests = await ConnectionRequest.find({ sender: req.params.userId }).populate('receiver');
     res.status(200).json(sentRequests);
+  } catch (err) {
+    res.status(500).json({ message: 'Error fetching sent requests', error: err });
+  }
 });
 
-// POST a new request
-router.post('/', (req, res) => {
-    const { fromUser, toUser, status } = req.body;
+// POST a new connection request
+router.post('/', async (req, res) => {
+  const { sender, receiver, message } = req.body;
 
-    if (!fromUser || !toUser || !status) {
-        return res.status(400).json({ message: 'fromUser, toUser, and status are required.' });
-    }
+  if (!sender || !receiver) {
+    return res.status(400).json({ message: 'sender and receiver are required.' });
+  }
 
-    const newRequest = {
-        id: requests.length + 1,
-        fromUser,
-        toUser,
-        status
-    };
+  try {
+    const newRequest = new ConnectionRequest({
+      sender,
+      receiver,
+      message
+    });
 
-    requests.push(newRequest);
+    await newRequest.save();
     res.status(201).json(newRequest);
+  } catch (err) {
+    res.status(500).json({ message: 'Error sending request', error: err });
+  }
 });
 
 // PUT update request status by ID
-router.put('/:id', (req, res) => {
-    const requestId = parseInt(req.params.id, 10);
-    const { status } = req.body;
+router.put('/:id', async (req, res) => {
+  const { status } = req.body;
 
-    const requestIndex = requests.findIndex(r => r.id === requestId);
+  if (!status) {
+    return res.status(400).json({ message: 'Status is required.' });
+  }
 
-    if (requestIndex === -1) {
-        return res.status(404).json({ message: 'Request not found' });
+  try {
+    const updatedRequest = await ConnectionRequest.findByIdAndUpdate(
+      req.params.id,
+      { status },
+      { new: true }
+    );
+
+    if (!updatedRequest) {
+      return res.status(404).json({ message: 'Request not found' });
     }
 
-    if (!status) {
-        return res.status(400).json({ message: 'Status is required.' });
-    }
-
-    requests[requestIndex].status = status;
-
-    res.status(200).json(requests[requestIndex]);
+    res.status(200).json(updatedRequest);
+  } catch (err) {
+    res.status(500).json({ message: 'Error updating request', error: err });
+  }
 });
 
 module.exports = router;

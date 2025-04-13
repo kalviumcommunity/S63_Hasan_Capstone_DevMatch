@@ -1,62 +1,69 @@
 const express = require('express');
+const ConnectionRequest = require('../models/connectionRequest')
+const User = require('../models/user');
 const router = express.Router();
 
-// Mock user data (shared across routes)
-const users = [
-    { id: 1, name: 'Hasan', skills: ['Java', 'React'] },
-    { id: 2, name: 'Rahul', skills: ['Python', 'UI/UX'] }
-];
-
 // GET all users
-router.get('/', (req, res) => {
-    res.status(200).json(users);
+router.get('/', async (req, res) => {
+    try {
+        const users = await User.find();
+        res.status(200).json(users);
+    } catch (err) {
+        res.status(500).json({ message: 'Error fetching users', error: err });
+    }
 });
 
 // GET user by ID
-router.get('/:id', (req, res) => {
-    const userId = parseInt(req.params.id, 10);
-    const user = users.find(u => u.id === userId);
-
-    if (!user) {
-        return res.status(404).json({ message: 'User not found' });
+router.get('/:id', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json(user);
+    } catch (err) {
+        res.status(500).json({ message: 'Error fetching user', error: err });
     }
-
-    res.status(200).json(user);
 });
 
 // POST a new user
-router.post('/', (req, res) => {
-    const { name, skills } = req.body;
-
-    if (!name || !skills || !Array.isArray(skills)) {
-        return res.status(400).json({ message: 'Invalid input. Name and skills are required.' });
+router.post('/', async (req, res) => {
+    const { name, email, password, bio, profilePic, connections } = req.body;
+    if (!name || !email || !password) {
+        return res.status(400).json({ message: 'Name, email and password are required.' });
     }
-
-    const newUser = {
-        id: users.length + 1,
-        name,
-        skills
-    };
-
-    users.push(newUser);
-    res.status(201).json(newUser);
+    try {
+        const newUser = new User({
+            name,
+            email,
+            password,
+            bio,
+            profilePic,
+            connections
+        });
+        await newUser.save();
+        res.status(201).json(newUser);
+    } catch (err) {
+        res.status(500).json({ message: 'Error creating user', error: err });
+    }
 });
 
 // PUT update user by ID
-router.put('/:id', (req, res) => {
-    const userId = parseInt(req.params.id, 10);
-    const { name, skills } = req.body;
-
-    const userIndex = users.findIndex(u => u.id === userId);
-
-    if (userIndex === -1) {
-        return res.status(404).json({ message: 'User not found' });
+router.put('/:id', async (req, res) => {
+    const { name, email, password, bio, profilePic, connections } = req.body;
+    try {
+        const updatedUser = await User.findByIdAndUpdate(
+            req.params.id,
+            { name, email, password, bio, profilePic, connections },
+            { new: true }
+        );
+        if (!updatedUser) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json(updatedUser);
+    } catch (err) {
+        res.status(500).json({ message: 'Error updating user', error: err });
     }
-
-    if (name) users[userIndex].name = name;
-    if (skills && Array.isArray(skills)) users[userIndex].skills = skills;
-
-    res.status(200).json(users[userIndex]);
 });
 
 module.exports = router;
