@@ -67,10 +67,31 @@ router.put('/:id', async (req, res) => {
       req.params.id,
       { status },
       { new: true }
-    );
+    ).populate('sender receiver');
 
     if (!updatedRequest) {
       return res.status(404).json({ message: 'Request not found' });
+    }
+
+    // If the request is accepted, update the connections arrays for both users
+    if (status === 'accepted') {
+      const { sender, receiver } = updatedRequest;
+      
+      // Add sender to receiver's connections if not already there
+      if (!receiver.connections.includes(sender._id)) {
+        await User.findByIdAndUpdate(
+          receiver._id,
+          { $addToSet: { connections: sender._id } }
+        );
+      }
+      
+      // Add receiver to sender's connections if not already there
+      if (!sender.connections.includes(receiver._id)) {
+        await User.findByIdAndUpdate(
+          sender._id,
+          { $addToSet: { connections: receiver._id } }
+        );
+      }
     }
 
     res.status(200).json(updatedRequest);
