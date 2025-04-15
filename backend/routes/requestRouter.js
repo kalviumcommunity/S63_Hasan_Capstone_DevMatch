@@ -35,7 +35,7 @@ router.get('/sent/:userId', async (req, res) => {
 
 // POST a new connection request
 router.post('/', async (req, res) => {
-  const { sender, receiver, message } = req.body;
+  const { sender, receiver } = req.body;
 
   if (!sender || !receiver) {
     return res.status(400).json({ message: 'sender and receiver are required.' });
@@ -44,8 +44,7 @@ router.post('/', async (req, res) => {
   try {
     const newRequest = new ConnectionRequest({
       sender,
-      receiver,
-      message
+      receiver
     });
 
     await newRequest.save();

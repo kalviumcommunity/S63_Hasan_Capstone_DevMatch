@@ -20,9 +20,9 @@ const profileRouter = require("./routes/profileRouter");
 const requestRouter = require("./routes/requestRouter");
 
 // Use routers
-app.use("/api/users", userRouter);
-app.use("/api/profiles", profileRouter);
 app.use("/api/requests", requestRouter);
+app.use("/api/profiles", profileRouter);
+app.use("/api/users", userRouter);
 
 // Root route
 app.get('/', (req, res) => {
