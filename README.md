@@ -86,3 +86,5 @@ Core Development (Days 6-20)
 Testing & Refinements (Days 21-27)
 
 Finalization & Deployment (Days 28-30)
+
+Netlify Link: https://storied-rabanadas-c9d26b.netlify.app/
