@@ -10,7 +10,7 @@ mongoose.connect(process.env.MONGO_URI)
 });
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8000;
 
 app.use(express.json());
 
@@ -18,11 +18,13 @@ app.use(express.json());
 const userRouter = require("./routes/userRouter");
 const profileRouter = require("./routes/profileRouter");
 const requestRouter = require("./routes/requestRouter");
+const uploadRouter = require("./routes/uploadRouter");
 
 // Use routers
 app.use("/api/requests", requestRouter);
 app.use("/api/profiles", profileRouter);
 app.use("/api/users", userRouter);
+app.use("/api/upload", uploadRouter);
 
 // Root route
 app.get('/', (req, res) => {
