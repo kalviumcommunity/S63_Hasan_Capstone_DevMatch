@@ -1,0 +1,267 @@
+/* ===== Base Styles ===== */
+:root {
+    --primary: #4361ee;
+    --primary-hover: #3a56d4;
+    --text-main: #2d3748;
+    --text-secondary: #4a5568;
+    --text-light: #718096;
+    --border-color: #e2e8f0;
+    --input-focus: rgba(67, 97, 238, 0.2);
+    --github-color: #24292e;
+    --google-color: #db4437;
+    --white: #ffffff;
+    --gray-light: #f8f9fa;
+    --gray-hover: #f1f3f5;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  
+  body {
+    background-color: #f5f7ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 1rem;
+  }
+  
+  /* ===== Login Container ===== */
+  .login-container {
+    width: 100%;
+    max-width: 28rem;
+    background: var(--white);
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    padding: 2.5rem;
+    animation: fadeIn 0.4s ease-out forwards;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* ===== Header Styles ===== */
+  .login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .login-logo {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px;
+  }
+  
+  .login-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  
+  /* ===== Form Styles ===== */
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
+  }
+  
+  .form-group label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-main);
+  }
+  
+  .form-input {
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    background-color: var(--white);
+  }
+  
+  .form-input::placeholder {
+    color: #a0aec0;
+  }
+  
+  .form-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--input-focus);
+  }
+  
+  /* ===== Forgot Password ===== */
+  .forgot-password {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 0.8125rem;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+  
+  .forgot-password:hover {
+    text-decoration: underline;
+    color: var(--primary-hover);
+  }
+  
+  /* ===== Login Button ===== */
+  .login-button {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 0.5rem;
+  }
+  
+  .login-button:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+  }
+  
+  .login-button:active {
+    transform: translateY(0);
+  }
+  
+  /* ===== Signup Link ===== */
+  .signup-link {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+    margin: 1rem 0;
+  }
+  
+  .signup-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+  
+  .signup-link a:hover {
+    text-decoration: underline;
+  }
+  
+  /* ===== Divider ===== */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-light);
+    font-size: 0.8125rem;
+    margin: 1.5rem 0;
+  }
+  
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background-color: var(--border-color);
+  }
+  
+  /* ===== Social Buttons ===== */
+  .social-login {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+  }
+  
+  .social-button {
+    width: 100%;
+    padding: 0.875rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    transition: all 0.2s ease;
+    background-color: var(--gray-light);
+  }
+  
+  .social-button:hover {
+    background-color: var(--gray-hover);
+    transform: translateY(-1px);
+  }
+  
+  .social-button:active {
+    transform: translateY(0);
+  }
+  
+  .social-button.github {
+    color: var(--github-color);
+  }
+  
+  .social-button.google {
+    color: var(--google-color);
+  }
+  
+  /* Social Icons (using Unicode symbols) */
+  .social-button.github::before {
+    content: '🐙';
+  }
+  
+  .social-button.google::before {
+    content: 'G';
+    font-weight: bold;
+  }
+  
+  /* ===== Responsive Design ===== */
+  @media (max-width: 480px) {
+    .login-container {
+      padding: 1.75rem;
+      border-radius: 0.75rem;
+    }
+    
+    .login-logo {
+      font-size: 1.75rem;
+    }
+    
+    .login-title {
+      font-size: 1.125rem;
+    }
+    
+    .form-input, .login-button, .social-button {
+      padding: 0.8125rem;
+    }
+  }
+  
+  /* ===== Accessibility Improvements ===== */
+  @media (prefers-reduced-motion) {
+    .login-container, .login-button, .social-button {
+      animation: none;
+      transition: none;
+    }
+  }
+  
+  /* Focus styles for keyboard navigation */
+  button:focus-visible, a:focus-visible, input:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
