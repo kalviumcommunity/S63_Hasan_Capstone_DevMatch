@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const LandingPage = () => {
+const Landing = () => {
   const navigate = useNavigate();
   const currentYear = new Date().getFullYear(); // Dynamically get the current year
 
@@ -134,4 +134,4 @@ const LandingPage = () => {
   );
 };
 
-export default LandingPage;
+export default Landing;

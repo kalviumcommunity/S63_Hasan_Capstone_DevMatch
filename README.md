@@ -1,90 +1,182 @@
-Capstone Project Proposal: DevMatch
+# DevMatch - Find Your Perfect Coding Partner
 
-Problem Statement:
+A platform that connects developers based on their skills, interests, and project preferences to facilitate collaboration and team formation.
 
-Finding the right collaborator is challenging. Many developers struggle
-to connect with like-minded peers who share their tech stack, interests,
-and goals. Existing platforms such as LinkedIn, Discord, and Reddit lack
-an efficient way to match developers based on preferences and project
-needs. There is a need for a platform that allows developers to find
-suitable teammates based on their skills and interests without the
-complexities of traditional networking.
+## 🚀 Features
 
+- **Profile Creation** – Users create profiles specifying their skills, interests, and project preferences
+- **Project Posting & Discovery** – Users can post projects with detailed descriptions and required skill sets
+- **Interest-Based Matching** – Developers can indicate interest in projects and get connected to project owners
+- **Optional Mutual Matching** – Users can browse developer profiles and match if both parties express interest
+- **Tech Tags & Filters** – Match projects and developers based on programming languages, experience, and availability
+- **Chat & Collaboration Tools** – In-app messaging for project discussions and planning
 
+## 🛠️ Tech Stack
 
-Solution:
+- **Frontend**: React 18, Vite, Tailwind CSS, React Router
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB
+- **Authentication**: JWT with custom auth system
+- **UI Components**: Headless UI, Heroicons
+- **State Management**: React Context API
 
-This platform aims to provide developers with an easy way to
-discover and collaborate on projects. Unlike traditional job
-boards or networking sites, this platform focuses on project-
-based connections, allowing users to browse projects, express
-interest, and connect with other developers. The matchmaking
-feature is available but optional, ensuring flexibility in how users
-engage.
+## 📦 Installation & Setup
 
+### Prerequisites
+- Node.js (v16 or higher)
+- npm or yarn
+- MongoDB (local or Atlas)
 
+### Quick Start
 
-Key Features:
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd S63_Hasan_Capstone_DevMatch
+   ```
 
-Profile Creation – Users create profiles specifying their skills, interests, and
-project preferences.
-Project Posting &amp; Discovery – Users can post projects with detailed
-descriptions and required skill sets, allowing interested developers to apply.
-Interest-Based Matching – Developers can indicate interest in projects and
-get connected to project owners.
-Optional Mutual Matching – Users can browse developer profiles and
-match if both parties express interest.
-Tech Tags &amp; Filters – Match projects and developers based on programming
-languages, experience, and availability.
-Chat &amp; Collaboration Tools – In-app messaging for project discussions and
-Planning.
+2. **Install all dependencies**
+   ```bash
+   npm run install-all
+   ```
 
+3. **Environment Setup**
+   
+   Create `.env` file in the backend directory:
+   ```env
+   MONGODB_URI=mongodb://localhost:27017/devmatch
+   JWT_SECRET=your_jwt_secret_here
+   PORT=8000
+   FRONTEND_URL=http://localhost:5173
+   NODE_ENV=development
+   ```
 
+4. **Run the application**
+   ```bash
+   # Run both frontend and backend
+   npm run dev
+   
+   # Or run separately:
+   npm run dev:frontend  # Frontend on http://localhost:5173
+   npm run dev:backend   # Backend on http://localhost:8000
+   ```
 
-Tech Stack:
+## 🏗️ Project Structure
 
-• Frontend: React
-• Backend: Node.js with Express
-• Database: MongoDB (for storing profiles, projects, and matches)
-• Authentication: Firebase/Auth0
-• Matching Logic: Custom algorithm based on skills, project
-interests, and mutual preferences
-• Chat System: Socket.io or Firebase Realtime Database
+```
+S63_Hasan_Capstone_DevMatch/
+├── frontend/                 # React frontend application
+│   ├── src/
+│   │   ├── components/      # Reusable UI components
+│   │   ├── pages/          # Page components
+│   │   ├── context/        # React context providers
+│   │   ├── services/       # API services
+│   │   └── App.jsx         # Main application component
+│   └── package.json
+├── backend/                 # Node.js backend application
+│   ├── routes/             # API route handlers
+│   ├── models/             # MongoDB models
+│   ├── middleware/         # Express middleware
+│   ├── uploads/            # File upload directory
+│   └── index.js            # Server entry point
+└── package.json            # Root package.json with scripts
+```
 
+## 🎨 Components Added
 
+### UI Components
+- **Modal** - Reusable modal dialog with transitions
+- **LoadingSpinner** - Customizable loading indicator
+- **Breadcrumbs** - Navigation breadcrumbs
+- **Navbar** - Responsive navigation with user menu
+- **Footer** - Site footer with links and social media
+- **Layout** - Main layout wrapper
 
-Target Audience:
+### Core Components
+- **ErrorBoundary** - Error handling component
+- **ProtectedRoute** - Authentication guard
+- **AuthContext** - Authentication state management
 
-• Students looking for hackathon teammates or academic project
-partners.
-• Freelancers seeking collaborators for client projects.
-• Startup Founders in need of technical co-founders or
-development teams.
-• Open Source Enthusiasts who want to contribute to projects and
-grow their skills.
+## 🔧 Available Scripts
 
+- `npm run install-all` - Install dependencies for all packages
+- `npm run dev` - Run both frontend and backend in development
+- `npm run dev:frontend` - Run frontend only
+- `npm run dev:backend` - Run backend only
+- `npm run build` - Build frontend for production
+- `npm start` - Start backend in production
 
+## 🌐 API Endpoints
 
-Expected Outcome:
+### Authentication
+- `POST /api/auth/signup` - User registration
+- `POST /api/auth/login` - User login
+- `GET /api/auth/verify` - Verify JWT token
 
-A dedicated platform for developers to efficiently find and
-collaborate on projects. By streamlining project discovery and
-team formation, the platform will enhance productivity, foster
-innovation, and create a strong developer community focused
-on real-world applications and teamwork.
+### Users
+- `GET /api/users/profile` - Get user profile
+- `PUT /api/users/profile` - Update user profile
+- `GET /api/users/matches` - Search for user matches
 
+### Projects
+- `GET /api/projects` - Get all projects
+- `POST /api/projects` - Create new project
+- `GET /api/projects/:id` - Get project details
+- `PUT /api/projects/:id` - Update project
+- `DELETE /api/projects/:id` - Delete project
 
+### Profiles
+- `GET /api/profiles` - Get all profiles
+- `GET /api/profiles/:id` - Get profile details
+- `POST /api/profiles` - Create profile
+- `PUT /api/profiles/:id` - Update profile
 
-30-Day Development Plan for DevMatch:
+## 🚀 Deployment
 
-This plan breaks down the development process into four phases:
+### Frontend (Netlify)
+- Build command: `npm run build`
+- Publish directory: `frontend/dist`
+- Environment variables: Set `VITE_API_URL` to your backend URL
 
-Planning & Design (Days 1-5)
+### Backend (Heroku/Railway)
+- Set environment variables in deployment platform
+- Ensure MongoDB connection string is configured
+- Set `NODE_ENV=production`
 
-Core Development (Days 6-20)
+## 🔒 Environment Variables
 
-Testing & Refinements (Days 21-27)
+### Backend (.env)
+```env
+MONGODB_URI=mongodb://localhost:27017/devmatch
+JWT_SECRET=your_secret_key
+PORT=8000
+FRONTEND_URL=http://localhost:5173
+NODE_ENV=development
+```
 
-Finalization & Deployment (Days 28-30)
+### Frontend (.env)
+```env
+VITE_API_URL=http://localhost:8000/api
+```
 
-Netlify Link: https://storied-rabanadas-c9d26b.netlify.app/
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 🔗 Links
+
+- **Live Demo**: [Netlify](https://storied-rabanadas-c9d26b.netlify.app/)
+- **Backend API**: Running on localhost:8000
+- **Frontend**: Running on localhost:5173
+
+## 📞 Support
+
+For support or questions, please open an issue in the repository or contact the development team.

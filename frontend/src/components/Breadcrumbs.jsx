@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ChevronRightIcon, HomeIcon } from '@heroicons/react/20/solid';
+import { ChevronRightIcon, HomeIcon } from '@heroicons/react/24/solid';
 
 const Breadcrumbs = () => {
   const location = useLocation();
