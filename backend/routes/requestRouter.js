@@ -100,4 +100,17 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+// DELETE a connection request by ID
+router.delete('/:id', async (req, res) => {
+  try {
+    const deletedRequest = await ConnectionRequest.findByIdAndDelete(req.params.id);
+    if (!deletedRequest) {
+      return res.status(404).json({ message: 'Request not found' });
+    }
+    res.status(200).json({ message: 'Request deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ message: 'Error deleting request', error: err });
+  }
+});
+
 module.exports = router;

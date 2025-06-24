@@ -1,115 +1,132 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Import Link and useNavigate
+import { useNavigate } from 'react-router-dom';
 
-// --- Import your components ---
-import Header from '../components/Header';     // Adjust path if needed
-import Button from '../components/Button';     // Adjust path if needed
-// ------------------------------
-
-// --- Import the CSS for this page ---
-import '../styles/Landing.css';         // Adjust path if needed
-// ------------------------------------
-
-const Landing = () => {
-  const navigate = useNavigate(); // Hook for navigation
-
-  // --- Button Click Handlers ---
-  const handleGetStartedClick = () => {
-    navigate('/signup'); // Navigate to signup page
-  };
-
-  const handleLoginClick = () => {
-    navigate('/login'); // Navigate to login page
-  };
-  // -----------------------------
+const LandingPage = () => {
+  const navigate = useNavigate();
+  const currentYear = new Date().getFullYear(); // Dynamically get the current year
 
   return (
-    <div className="page-container">
-      <Header /> {/* Use the imported Header component */}
+    <div className="bg-white text-gray-900 font-sans w-full">
+      {/* Header */}
+      <header className="w-full border-b py-6 px-8">
+        <div className="flex justify-between items-center w-full max-w-full">
+          <h1 className="text-2xl font-bold">DevMatch</h1>
+          <nav className="space-x-8 flex items-center text-lg">
+            <a href="#how-it-works" className="hover:text-blue-600 transition hidden sm:inline-block">
+              How It Works
+            </a>
+            <button
+              onClick={() => navigate('/login')}
+              className="bg-blue-600 text-white px-6 py-3 text-base rounded-lg hover:bg-blue-700 transition"
+            >
+              Sign In
+            </button>
+          </nav>
+        </div>
+      </header>
 
-      <main className="main-content">
-
-        {/* Hero Section */}
-        <section className="hero-section">
-          <div className="hero-container">
-            <h1 className="main-title">Find Your Perfect Coding Partner</h1>
-            <p className="hero-text">Connect with developers who share your passion and complement your skills.</p>
-            <p className="hero-text">Build amazing projects together.</p>
-
-            <div className="feature-badges">
-              <span className="badge">✓ Free to join</span>
-              <span className="badge">✓ Verified developers</span>
-            </div>
-
-            {/* Use your imported Button component with correct props */}
-            <div className="cta-buttons">
-               {/* Note: Styling variants (primary/secondary) might require */}
-               {/* adjustments in your Button component if needed */}
-               <Button text="Get Started" onClick={handleGetStartedClick} />
-               <Button text="Login" onClick={handleLoginClick} />
-            </div>
-          </div>
-        </section>
-
-        {/* How It Works Section */}
-        <section className="steps-section">
-          <div className="steps-container">
-            <h2 className="section-title">How It Works</h2>
-            <div className="steps-grid">
-              {/* Step Cards */}
-              <div className="step-card">
-                <div className="step-icon">👤</div>
-                <h3>Create Your Profile</h3>
-                <p>Build your developer profile with your skills, experiences, and project preferences.</p>
-              </div>
-              <div className="step-card">
-                <div className="step-icon">🔍</div>
-                <h3>Get Matched</h3>
-                <p>Our algorithm finds developers who match your skillset and project interests.</p>
-              </div>
-              <div className="step-card">
-                <div className="step-icon">🤝</div>
-                <h3>Start Collaborating</h3>
-                <p>Connect with your matches and begin building amazing projects together.</p>
-              </div>
+      {/* Hero Section */}
+      <section className="w-full py-24 md:py-32 px-8">
+        <div className="flex flex-col md:flex-row items-center justify-between w-full gap-16 max-w-full">
+          <div className="flex-1 text-center md:text-left">
+            <h2 className="text-5xl md:text-7xl font-extrabold mb-8 leading-tight">
+              Find Your Perfect <br /> Coding Partner
+            </h2>
+            <p className="text-2xl md:text-3xl text-gray-700 mb-10 max-w-3xl">
+              Connect with developers who share your passion and complement your skills. Build amazing projects together.
+            </p>
+            <button
+              onClick={() => navigate('/signup')}
+              className="bg-blue-600 text-white px-10 py-5 text-lg rounded-lg hover:bg-blue-700 transition"
+            >
+              Find Your Match
+            </button>
+            <div className="flex justify-center md:justify-start gap-10 mt-8 text-xl text-gray-600">
+              <span className="flex items-center">✅ Free to join</span>
+              <span className="flex items-center">✅ Verified developers</span>
             </div>
           </div>
-        </section>
 
-        {/* Stats Section */}
-        <section className="stats-section">
-          <div className="stats-container">
-            {/* Stat Items */}
-            <div className="stat-item"><span className="stat-number">10k+</span><span className="stat-label">Active Developers</span></div>
-            <div className="stat-item"><span className="stat-number">5k+</span><span className="stat-label">Successful Matches</span></div>
-            <div className="stat-item"><span className="stat-number">1k+</span><span className="stat-label">Projects Launched</span></div>
+          <div className="flex-1 max-w-xl md:max-w-3xl">
+            <img
+              src="https://next-cdn.codementor.io/images/pair-programming/pair-programming-hero.png"
+              alt="Coding Partner"
+              className="rounded-2xl shadow-xl w-full"
+            />
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Final CTA Section */}
-        <section className="final-cta">
-          <div className="cta-container">
-            <h2 className="cta-title">Ready to Find Your Match?</h2>
-            <p className="cta-text">Join thousands of developers who've found their perfect coding partner.</p>
-             {/* Use your imported Button component */}
-             {/* Consider variant prop for styling if needed */}
-            <Button text="GET STARTED NOW" onClick={handleGetStartedClick} />
+      {/* How It Works Section */}
+      <section id="how-it-works" className="w-full bg-gray-100 py-28 px-8">
+        <div className="text-center w-full">
+          <h3 className="text-4xl md:text-5xl font-bold mb-20">How It Works</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 w-full">
+            {[
+              {
+                title: 'Create Your Profile',
+                desc: 'Build your developer profile with your skills, experience, and project preferences.',
+              },
+              {
+                title: 'Get Matched',
+                desc: 'Our algorithm finds developers who mirror your skillset and project interests.',
+              },
+              {
+                title: 'Start Collaborating',
+                desc: 'Connect with your matches and begin building amazing projects together.',
+              },
+            ].map((card, idx) => (
+              <div
+                key={idx}
+                className="bg-white p-10 rounded-2xl shadow-2xl text-left text-lg w-full h-full transform transition duration-300 hover:scale-105 hover:shadow-3xl"
+              >
+                <div className="text-4xl mb-6">📌</div>
+                <h4 className="text-2xl font-semibold mb-4">{card.title}</h4>
+                <p className="text-gray-600">{card.desc}</p>
+              </div>
+            ))}
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
 
       {/* Footer */}
-      <footer className="site-footer">
-        <div className="footer-container">
-          <div className="footer-grid">
-            {/* Footer Columns */}
-             <div className="footer-column"><h4>Platform</h4><ul><li><Link to="/how-it-works">How it Works</Link></li><li><Link to="/projects">Browse Projects</Link></li><li><Link to="/success-stories">Success Stories</Link></li></ul></div>
-            <div className="footer-column"><h4>Company</h4><ul><li><Link to="/about">About Us</Link></li><li><Link to="/blog">Blog</Link></li><li><Link to="/careers">Careers</Link></li></ul></div>
-            <div className="footer-column"><h4>Resources</h4><ul><li><Link to="/docs">Documentation</Link></li><li><Link to="/help">Help Center</Link></li><li><Link to="/faq">FAQs</Link></li></ul></div>
-            <div className="footer-column"><h4>Connect</h4><ul><li><a href="#" target="_blank" rel="noopener noreferrer">Twitter</a></li><li><a href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a></li><li><a href="#" target="_blank" rel="noopener noreferrer">GitHub</a></li></ul></div>
+      <footer className="bg-gray-900 text-gray-400 py-16 px-8">
+        <div className="max-w-screen-xl mx-auto flex flex-col items-center text-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-14 w-full">
+            <div>
+              <h5 className="text-white font-semibold mb-4">Platform</h5>
+              <ul className="space-y-2">
+                <li><a href="#how-it-works" className="hover:text-white">How It Works</a></li>
+                <li><a href="#" className="hover:text-white">Browse Projects</a></li>
+              </ul>
+            </div>
+            <div>
+              <h5 className="text-white font-semibold mb-4">Company</h5>
+              <ul className="space-y-2">
+                <li><a href="#" className="hover:text-white">About Us</a></li>
+                <li><a href="#" className="hover:text-white">Blog</a></li>
+                <li><a href="#" className="hover:text-white">Careers</a></li>
+              </ul>
+            </div>
+            <div>
+              <h5 className="text-white font-semibold mb-4">Resources</h5>
+              <ul className="space-y-2">
+                <li><a href="#" className="hover:text-white">Documentation</a></li>
+                <li><a href="#" className="hover:text-white">Help Center</a></li>
+                <li><a href="#" className="hover:text-white">FAQs</a></li>
+              </ul>
+            </div>
+            <div>
+              <h5 className="text-white font-semibold mb-4">Connect</h5>
+              <ul className="space-y-2">
+                <li><a href="#" className="hover:text-white">Twitter</a></li>
+                <li><a href="#" className="hover:text-white">LinkedIn</a></li>
+                <li><a href="#" className="hover:text-white">GitHub</a></li>
+              </ul>
+            </div>
           </div>
-          <div className="footer-bottom">
-            <p>© {new Date().getFullYear()} DevMatch. All rights reserved.</p>
+          <div className="text-center text-sm text-gray-500 mt-12">
+            © {currentYear} DevMatch. All rights reserved.
           </div>
         </div>
       </footer>
@@ -117,4 +134,4 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+export default LandingPage;

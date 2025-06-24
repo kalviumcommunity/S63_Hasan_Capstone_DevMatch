@@ -61,4 +61,17 @@ router.put('/:userId', (req, res) => {
     res.status(200).json(profiles[profileIndex]);
 });
 
+// DELETE profile by userId
+router.delete('/:userId', (req, res) => {
+    const userId = parseInt(req.params.userId, 10);
+    const profileIndex = profiles.findIndex(p => p.userId === userId);
+
+    if (profileIndex === -1) {
+        return res.status(404).json({ message: 'Profile not found' });
+    }
+
+    profiles.splice(profileIndex, 1);
+    res.status(200).json({ message: 'Profile deleted successfully' });
+});
+
 module.exports = router;
