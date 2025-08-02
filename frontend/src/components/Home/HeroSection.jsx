@@ -1,5 +1,6 @@
 import { FaArrowRight } from "react-icons/fa6";
 import { Link } from "react-router";
+import { getAssetPath } from "../../utils/assetUtils";
 
 const HeroSection = () => {
     return (
@@ -25,7 +26,7 @@ const HeroSection = () => {
                 </div>
                 <div className="flex-1">
                     <img
-                        src="/assets/hero-img.png"
+                        src={getAssetPath("assets/hero-img.png")}
                         loading="lazy"
                         alt="hero-img"
                         className="block mx-auto"
@@ -36,4 +37,4 @@ const HeroSection = () => {
     );
 };
 
-export default HeroSection; 
+export default HeroSection;

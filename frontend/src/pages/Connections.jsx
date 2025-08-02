@@ -1,6 +1,7 @@
 import ConnectionCard from "../components/Cards/ConnectionCard.jsx";
 import useGetConnections from "../hooks/useGetConnections.js";
 import { useGlobalStore } from "../store/useStore.js";
+import { getAssetPath } from "../utils/assetUtils";
 
 const Connections = () => {
     useGetConnections();
@@ -13,7 +14,7 @@ const Connections = () => {
                     <h2 className="sm:text-3xl text-2xl font-bold text-neutral-content">No Connections Found!</h2>
                     <img
                         loading="lazy"
-                        src="/assets/empty-connections.svg"
+                        src={getAssetPath("assets/empty-connections.svg")}
                         alt="user-not-found"
                         className="block mx-auto w-96"
                     />
@@ -35,4 +36,4 @@ const Connections = () => {
     );
 };
 
-export default Connections; 
+export default Connections;

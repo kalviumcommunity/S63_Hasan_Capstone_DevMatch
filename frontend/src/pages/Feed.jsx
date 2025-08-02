@@ -3,6 +3,7 @@ import TinderCard from "react-tinder-card";
 import useGetFeed from "../hooks/useGetFeed.js";
 import { useGlobalStore } from "../store/useStore.js";
 import { truncateString } from "../utils/truncateString.js";
+import { getAssetPath } from "../utils/assetUtils";
 
 const Feed = () => {
     const { feed } = useGlobalStore();
@@ -20,7 +21,7 @@ const Feed = () => {
                     <h2 className="sm:text-3xl text-2xl font-bold text-neutral-content">No New Users Found!</h2>
                     <img
                         loading="lazy"
-                        src="/assets/empty-feed.svg"
+                        src={getAssetPath("assets/empty-feed.svg")}
                         alt="user-not-found"
                         className="block mx-auto w-96"
                     />
@@ -77,4 +78,4 @@ const Feed = () => {
     );
 };
 
-export default Feed; 
+export default Feed;

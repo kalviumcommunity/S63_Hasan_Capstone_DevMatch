@@ -1,6 +1,7 @@
 import RequestCard from "../components/Cards/RequestCard.jsx";
 import useGetRequestsReceived from "../hooks/useGetRequestsReceived.js";
 import { useGlobalStore } from "../store/useStore.js";
+import { getAssetPath } from "../utils/assetUtils";
 
 const Requests = () => {
     useGetRequestsReceived();
@@ -13,7 +14,7 @@ const Requests = () => {
                     <h2 className="sm:text-3xl text-2xl font-bold text-neutral-content">No Connection Requests Received!</h2>
                     <img
                         loading="lazy"
-                        src="/assets/empty-requests.svg"
+                        src={getAssetPath("assets/empty-requests.svg")}
                         alt="user-not-found"
                         className="block mx-auto w-96"
                     />
@@ -35,4 +36,4 @@ const Requests = () => {
     );
 };
 
-export default Requests; 
+export default Requests;

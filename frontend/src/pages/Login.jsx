@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { Link } from "react-router";
+import { getAssetPath } from "../utils/assetUtils";
 
 import ToolTipMessage from "../components/Common/ToolTipMessage.jsx";
 import useLogin from "../hooks/useLogin.js";
@@ -30,7 +31,7 @@ const Login = () => {
         <div className="h-full flex flex-1 gap-10 items-center justify-center">
             <div className="lg:block hidden">
                 <img
-                    src="/assets/login.jpg"
+                    src={getAssetPath("assets/login.jpg")}
                     className="block mx-auto w-[448px] rounded-xl"
                     loading="lazy"
                     alt="login-img"
@@ -111,4 +112,4 @@ const Login = () => {
         </div>
     );
 };
-export default Login; 
+export default Login;
