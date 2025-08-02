@@ -5,6 +5,54 @@
 [build.environment]
   NODE_VERSION = "18"
 
+# Handle static assets first
+[[redirects]]
+  from = "/assets/*"
+  to = "/assets/:splat"
+  status = 200
+
+# Handle other static files
+[[redirects]]
+  from = "/*.js"
+  to = "/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*.css"
+  to = "/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*.png"
+  to = "/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*.jpg"
+  to = "/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*.jpeg"
+  to = "/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*.svg"
+  to = "/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*.ico"
+  to = "/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*.mp3"
+  to = "/:splat"
+  status = 200
+
+# Catch-all for SPA routing (must be last)
 [[redirects]]
   from = "/*"
   to = "/index.html"
