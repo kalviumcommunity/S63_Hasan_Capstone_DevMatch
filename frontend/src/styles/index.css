@@ -34,26 +34,28 @@
     --noise: 0;
 }
 
-html {
-    font-family: "Inter", sans-serif;
+@layer base {
+    html {
+        font-family: "Inter", sans-serif;
+    }
+    
+    body {
+        @apply bg-[#1a1a1d];
+    }
+    
+    #root {
+        @apply flex flex-col min-h-screen;
+    }
 }
 
-body {
-    background-color: #1a1a1d;
-}
+@layer utilities {
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
 
-#root {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-input[type="number"] {
-    -moz-appearance: textfield;
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
 }
