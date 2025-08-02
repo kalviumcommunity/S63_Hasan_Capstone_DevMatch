@@ -1,6 +1,6 @@
-@import "tailwindcss";
-@plugin "tailwind-scrollbar-hide";
-@plugin "daisyui";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
     color-scheme: dark;
@@ -34,20 +34,18 @@
     --noise: 0;
 }
 
-@theme {
-    --font-inter: "Inter", sans-serif;
-}
-
 html {
-    @apply font-inter;
+    font-family: "Inter", sans-serif;
 }
 
 body {
-    @apply bg-[#1a1a1d];
+    background-color: #1a1a1d;
 }
 
 #root {
-    @apply flex flex-col min-h-screen;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 input::-webkit-outer-spin-button,
