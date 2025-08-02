@@ -4,5 +4,13 @@ import { defineConfig } from "vite";
 
 // https://vite.dev/config/
 export default defineConfig({
-    plugins: [react(), tailwindcss()]
+    plugins: [react(), tailwindcss()],
+    build: {
+        rollupOptions: {
+            external: ['@rollup/rollup-linux-x64-gnu']
+        }
+    },
+    optimizeDeps: {
+        exclude: ['@rollup/rollup-linux-x64-gnu']
+    }
 }); 
