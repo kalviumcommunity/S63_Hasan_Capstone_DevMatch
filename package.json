@@ -1,0 +1,12 @@
+{
+  "name": "devmatch",
+  "version": "1.0.0",
+  "description": "DevMatch - Tinder for Developers",
+  "scripts": {
+    "build": "cd frontend && npm ci --legacy-peer-deps && npm run build",
+    "dev": "cd frontend && npm run dev"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+} 

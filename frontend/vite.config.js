@@ -6,11 +6,8 @@ import { defineConfig } from "vite";
 export default defineConfig({
     plugins: [react(), tailwindcss()],
     build: {
-        rollupOptions: {
-            external: ['@rollup/rollup-linux-x64-gnu']
-        }
-    },
-    optimizeDeps: {
-        exclude: ['@rollup/rollup-linux-x64-gnu']
+        outDir: 'dist',
+        sourcemap: false,
+        minify: 'esbuild'
     }
 }); 
