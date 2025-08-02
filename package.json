@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "DevMatch - Tinder for Developers",
   "scripts": {
-    "build": "cd frontend && npm ci --legacy-peer-deps && npm run build",
-    "dev": "cd frontend && npm run dev"
+    "build": "cd frontend && npm ci --legacy-peer-deps --no-audit && npm run build",
+    "dev": "cd frontend && npm run dev",
+    "install-deps": "cd frontend && npm ci --legacy-peer-deps"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=20.0.0",
+    "npm": ">=8.0.0"
   }
 } 
