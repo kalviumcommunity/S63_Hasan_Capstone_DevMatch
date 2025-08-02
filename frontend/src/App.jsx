@@ -1,80 +1,103 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
-import ErrorBoundary from './components/ErrorBoundary';
-import ProtectedRoute from './components/ProtectedRoute';
-import { AuthProvider } from './context/AuthContext';
+import { lazy, Suspense } from "react";
+import { Toaster } from "react-hot-toast";
+import { Routes, Route } from "react-router";
 
-import Landing from './pages/Landing';
-import Login from './pages/LoginPage';
-import Signup from './pages/SignupPage';
-import Dashboard from './pages/Dashboard';
-import ProfilePage from './pages/Profile';
-import Match from './pages/Match';
-import Project from './pages/Project';
-import Settings from './pages/Settings';
-import ForgotPassword from './pages/ForgotPassword';
-import ProjectDetails from './pages/ProjectDetails';
-import ResetPassword from './pages/ResetPassword';
-import TermsOfService from './pages/TermsOfService';
-import PrivacyPolicy from './pages/PrivacyPolicy';
-import Contact from './pages/Contact';
+import Footer from "./components/Common/Footer.jsx";
+import Header from "./components/Common/Header.jsx";
+import Loader from "./components/Common/Loader.jsx";
+import ProtectedRoute from "./components/Routes/ProtectedRoute.jsx";
+import PublicRoute from "./components/Routes/PublicRoute.jsx";
 
-function App() {
-  return (
-    <ErrorBoundary>
-      <AuthProvider>
-        <Router>
-          <Toaster 
-            position="top-right"
-            toastOptions={{
-              duration: 4000,
-              style: {
-                background: '#363636',
-                color: '#fff',
-              },
-              success: {
-                duration: 3000,
-                iconTheme: {
-                  primary: '#4ade80',
-                  secondary: '#fff',
-                },
-              },
-              error: {
-                duration: 4000,
-                iconTheme: {
-                  primary: '#ef4444',
-                  secondary: '#fff',
-                },
-              },
-            }}
-          />
-          <Routes>
-            {/* Public routes */}
-            <Route path="/" element={<Landing />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/forgotpassword" element={<ForgotPassword />} />
-            <Route path="/reset-password/:token" element={<ResetPassword />} />
-            <Route path="/terms" element={<TermsOfService />} />
-            <Route path="/privacy" element={<PrivacyPolicy />} />
-            <Route path="/contact" element={<Contact />} />
-            
-            {/* Protected routes */}
-            <Route element={<ProtectedRoute />}>
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/profile/:userId" element={<ProfilePage />} />
-              <Route path="/projects" element={<Project />} />
-              <Route path="/settings" element={<Settings />} />
-              <Route path="/match" element={<Match />} />
-              <Route path="/project/:id" element={<ProjectDetails />} />
-            </Route>
-          </Routes>
-        </Router>
-      </AuthProvider>
-    </ErrorBoundary>
-  );
-}
+const Home = lazy(() => import("./pages/Home.jsx"));
+const Login = lazy(() => import("./pages/Login.jsx"));
+const Signup = lazy(() => import("./pages/Signup.jsx"));
+const Feed = lazy(() => import("./pages/Feed.jsx"));
+const Profile = lazy(() => import("./pages/Profile.jsx"));
+const Requests = lazy(() => import("./pages/Requests.jsx"));
+const Connections = lazy(() => import("./pages/Connections.jsx"));
+const Chat = lazy(() => import("./pages/Chat.jsx"));
+const NotFound = lazy(() => import("./pages/NotFound.jsx"));
 
-export default App;
+const App = () => {
+    return (
+        <>
+            <Header />
+            <Suspense fallback={<Loader />}>
+                <Routes>
+                    <Route
+                        path="/"
+                        element={
+                            <PublicRoute>
+                                <Home />
+                            </PublicRoute>
+                        }
+                    />
+                    <Route
+                        path="/login"
+                        element={
+                            <PublicRoute>
+                                <Login />
+                            </PublicRoute>
+                        }
+                    />
+                    <Route
+                        path="/signup"
+                        element={
+                            <PublicRoute>
+                                <Signup />
+                            </PublicRoute>
+                        }
+                    />
+                    <Route
+                        path="/feed"
+                        element={
+                            <ProtectedRoute>
+                                <Feed />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/profile"
+                        element={
+                            <ProtectedRoute>
+                                <Profile />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/requests"
+                        element={
+                            <ProtectedRoute>
+                                <Requests />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/connections"
+                        element={
+                            <ProtectedRoute>
+                                <Connections />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/chat/:userId"
+                        element={
+                            <ProtectedRoute>
+                                <Chat />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="*"
+                        element={<NotFound />}
+                    />
+                </Routes>
+            </Suspense>
+            <Footer />
+            <Toaster />
+        </>
+    );
+};
+
+export default App; 
