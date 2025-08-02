@@ -34,28 +34,26 @@
     --noise: 0;
 }
 
-@layer base {
-    html {
-        font-family: "Inter", sans-serif;
-    }
-    
-    body {
-        @apply bg-[#1a1a1d];
-    }
-    
-    #root {
-        @apply flex flex-col min-h-screen;
-    }
+html {
+    font-family: "Inter", sans-serif;
 }
 
-@layer utilities {
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
+body {
+    background-color: #1a1a1d;
+}
 
-    input[type="number"] {
-        -moz-appearance: textfield;
-    }
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
 }
